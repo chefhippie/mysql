@@ -17,19 +17,16 @@
 # limitations under the License.
 #
 
-case node["platform_family"]
-when "debian"
-  default["mysql"]["client"]["packages"] = %w(
+default["mysql"]["client"]["packages"] = value_for_platform_family(
+  "debian" => %w(
     mysql-client
     libmysqlclient-dev
-  )
-when "ubuntu"
-  default["mysql"]["client"]["packages"] = %w(
+  ),
+  "ubuntu" => %w(
     mysql-client
     libmysqlclient-dev
-  )
-when "suse"
-  default["mysql"]["client"]["packages"] = %w(
+  ),
+  "suse" => %w(
     mysql-client
   )
-end
+)

@@ -26,7 +26,7 @@ template node["mysql"]["backup"]["executable"] do
   group "root"
   mode 0750
 
-  if node["mysql"]["credentials"]["enabled"] 
+  if Chef::Config[:solo] or node["mysql"]["credentials"]["enabled"]
     variables(
       node["mysql"]["backup"].merge(
         node["mysql"]["credentials"]
@@ -45,11 +45,11 @@ template node["mysql"]["backup"]["executable"] do
 end
 
 cron "mysqlbackup" do
-  minute node["mysql"]["backup"]["cron_minute"]
-  hour node["mysql"]["backup"]["cron_hour"]
-  day node["mysql"]["backup"]["cron_day"]
-  month node["mysql"]["backup"]["cron_month"]
-  weekday node["mysql"]["backup"]["cron_weekday"]
+  minute node["mysql"]["backup"]["cron"]["minute"]
+  hour node["mysql"]["backup"]["cron"]["hour"]
+  day node["mysql"]["backup"]["cron"]["day"]
+  month node["mysql"]["backup"]["cron"]["month"]
+  weekday node["mysql"]["backup"]["cron"]["weekday"]
 
   command node["mysql"]["backup"]["executable"]
 end

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mysql
-# Attributes:: client
+# Attributes:: default
 #
 # Copyright 2013, Thomas Boerger
 #

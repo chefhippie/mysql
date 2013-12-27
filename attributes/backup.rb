@@ -22,8 +22,8 @@ default["mysql"]["backup"]["target"] = "/backup/mysql"
 default["mysql"]["backup"]["maximum"] = 14
 default["mysql"]["backup"]["databases"] = %w()
 
-default["mysql"]["backup"]["cron_minute"] = 0
-default["mysql"]["backup"]["cron_hour"] = 5
-default["mysql"]["backup"]["cron_day"] = "*"
-default["mysql"]["backup"]["cron_month"] = "*"
-default["mysql"]["backup"]["cron_weekday"] = "*"
+default["mysql"]["backup"]["cron"]["minute"] = 0
+default["mysql"]["backup"]["cron"]["hour"] = 5
+default["mysql"]["backup"]["cron"]["day"] = "*"
+default["mysql"]["backup"]["cron"]["month"] = "*"
+default["mysql"]["backup"]["cron"]["weekday"] = "*"

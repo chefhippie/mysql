@@ -17,58 +17,40 @@
 # limitations under the License.
 #
 
-case node["platform_family"]
-when "debian"
-  default["mysql"]["server"]["packages"] = %w(
+default["mysql"]["server"]["packages"] = value_for_platform_family(
+  "debian" => %w(
     mysql-server
-  )
-
-  default["mysql"]["server"]["config_file"] = "/etc/mysql/my.cnf"
-  default["mysql"]["server"]["config_dir"] = "/etc/mysql/conf.d"
-
-  default["mysql"]["server"]["plugin_files"] = %w(
-    mysqld_safe_syslog
-  )
-
-  default["mysql"]["server"]["removed_dirs"] = %w(
-    /etc/mysql/conf.d
-  )
-when "ubuntu"
-  default["mysql"]["server"]["packages"] = %w(
+  ),
+  "ubuntu" => %w(
     mysql-server
-  )
-
-  default["mysql"]["server"]["config_file"] = "/etc/mysql/my.cnf"
-  default["mysql"]["server"]["config_dir"] = "/etc/mysql/conf.d"
-
-  default["mysql"]["server"]["plugin_files"] = %w(
-    mysqld_safe_syslog
-  )
-
-  default["mysql"]["server"]["removed_dirs"] = %w(
-    /etc/mysql/conf.d
-  )
-when "suse"
-  default["mysql"]["server"]["packages"] = %w(
+  ),
+  "suse" => %w(
     mysql
   )
+)
 
-  default["mysql"]["server"]["config_file"] = "/etc/my.cnf"
-  default["mysql"]["server"]["config_dir"] = "/etc/mysql"
-
-  default["mysql"]["server"]["plugin_files"] = %w(
-    default_plugins
-  )
-
-  default["mysql"]["server"]["removed_dirs"] = %w(
-    /etc/mysql
-  )
-end
+default["mysql"]["server"]["config_file"] = value_for_platform_family(
+  "debian" => "/etc/mysql/my.cnf",
+  "ubuntu" => "/etc/mysql/my.cnf",
+  "suse" => "/etc/my.cnf"
+)
 
 default["mysql"]["server"]["removed_files"] = %w(
   /etc/mysql/conf.d/.keepme
   /etc/mysql/conf.d/mysqld_safe_syslog.cnf
   /etc/mysql/default_plugins.cnf
+)
+
+default["mysql"]["server"]["removed_dirs"] = value_for_platform_family(
+  "debian" => %w(
+    /etc/mysql/conf.d
+  ),
+  "ubuntu" => %w(
+    /etc/mysql/conf.d
+  ),
+  "suse" => %w(
+    /etc/mysql
+  )
 )
 
 default["mysql"]["server"]["removed_links"] = %w(
