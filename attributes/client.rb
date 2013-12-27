@@ -28,5 +28,6 @@ default["mysql"]["client"]["packages"] = value_for_platform_family(
   ),
   "suse" => %w(
     mysql-client
+    libmysqlclient-devel
   )
 )
