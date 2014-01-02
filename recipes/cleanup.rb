@@ -22,7 +22,7 @@ credentials = if Chef::Config[:solo] and not node.recipes.include?("chef-solo-se
 else
   search(
     "mysql",
-    "id:default"
+    "fqdn:#{node["fqdn"]} OR id:default"
   ).first.to_hash
 end
 

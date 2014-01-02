@@ -37,7 +37,7 @@ template node["mysql"]["backup"]["executable"] do
       node["mysql"]["backup"].merge(
         search(
           "mysql",
-          "id:default"
+          "fqdn:#{node["fqdn"]} OR id:default"
         ).first.to_hash
       )
     )
