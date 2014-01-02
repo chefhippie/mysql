@@ -26,7 +26,7 @@ template node["mysql"]["backup"]["executable"] do
   group "root"
   mode 0750
 
-  if Chef::Config[:solo] or node["mysql"]["credentials"]["enabled"]
+  if Chef::Config[:solo] and not node.recipes.include?("chef-solo-search")
     variables(
       node["mysql"]["backup"].merge(
         node["mysql"]["credentials"]

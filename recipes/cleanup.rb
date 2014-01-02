@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-credentials = if node["mysql"]["credentials"]["enabled"] 
+credentials = if Chef::Config[:solo] and not node.recipes.include?("chef-solo-search")
   node["mysql"]["credentials"]
 else
   search(

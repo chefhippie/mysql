@@ -17,6 +17,5 @@
 # limitations under the License.
 #
 
-default["mysql"]["credentials"]["enabled"] = false
 default["mysql"]["credentials"]["username"] = "root"
 default["mysql"]["credentials"]["password"] = "root"
