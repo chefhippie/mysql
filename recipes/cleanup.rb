@@ -24,7 +24,7 @@ execute "mysql_password" do
   user "root"
   group "root"
 
-  command "mysqladmin -u #{credentials["username"]} password '#{credentials["password"]}'"
+  command "mysqladmin -u #{node["mysql"]["credentials"]["username"]} password '#{node["mysql"]["credentials"]["password"]}'"
 
   not_if do
     begin
