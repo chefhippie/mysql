@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+include_recipe "mysql::credentials"
 include_recipe "mysql::client"
 
 template node["mysql"]["backup"]["executable"] do
@@ -26,22 +27,11 @@ template node["mysql"]["backup"]["executable"] do
   group "root"
   mode 0750
 
-  if Chef::Config[:solo] and not node.recipes.include?("chef-solo-search")
-    variables(
-      node["mysql"]["backup"].merge(
-        node["mysql"]["credentials"]
-      )
+  variables(
+    node["mysql"]["backup"].merge(
+      node["mysql"]["credentials"]
     )
-  else
-    variables(
-      node["mysql"]["backup"].merge(
-        search(
-          "mysql",
-          "fqdn:#{node["fqdn"]} OR id:default"
-        ).first.to_hash
-      )
-    )
-  end
+  )
 end
 
 cron "mysqlbackup" do

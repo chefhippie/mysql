@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "mysql::credentials"
+
 node["mysql"]["ruby"]["gems"].each do |name|
   chef_gem name do
     action :install

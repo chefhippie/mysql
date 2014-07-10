@@ -28,8 +28,8 @@ attribute :privileges, :kind_of => Array, :default => [:all]
 attribute :connection, :kind_of => Hash, :default => {
   "host" => "localhost",
   "port" => 3306,
-  "username" => node["mysql"]["credentials"]["enabled"] ? node["mysql"]["credentials"]["username"] : "",
-  "password" => node["mysql"]["credentials"]["enabled"] ? node["mysql"]["credentials"]["password"] : ""
+  "username" => node["mysql"]["credentials"]["username"],
+  "password" => node["mysql"]["credentials"]["password"]
 }
 
 default_action :create

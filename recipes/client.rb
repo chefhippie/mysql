@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "mysql::credentials"
+
 node["mysql"]["client"]["packages"].each do |name|
   package name do
     action :install

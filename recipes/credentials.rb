@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mysql
-# Recipe:: default
+# Recipe:: credentials
 #
 # Copyright 2013, Thomas Boerger
 #
@@ -17,6 +17,16 @@
 # limitations under the License.
 #
 
-include_recipe "mysql::credentials"
-include_recipe "mysql::backup"
-include_recipe "mysql::server"
+if Chef::Config[:solo] and not node.recipes.include?("chef-solo-search")
+  log "Using attribute based mysql credentials" do
+    level :info
+  end
+else
+  credentials = search(
+    "mysql",
+    "fqdn:#{node["fqdn"]} OR id:default"
+  ).first.to_hash
+
+  node.set["mysql"]["credentials"]["username"] = credentials["username"]
+  node.set["mysql"]["credentials"]["password"] = credentials["password"]
+end

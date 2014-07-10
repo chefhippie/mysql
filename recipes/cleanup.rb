@@ -17,14 +17,8 @@
 # limitations under the License.
 #
 
-credentials = if Chef::Config[:solo] and not node.recipes.include?("chef-solo-search")
-  node["mysql"]["credentials"]
-else
-  search(
-    "mysql",
-    "fqdn:#{node["fqdn"]} OR id:default"
-  ).first.to_hash
-end
+include_recipe "database"
+include_recipe "mysql::credentials"
 
 execute "mysql_password" do
   user "root"
@@ -39,11 +33,11 @@ execute "mysql_password" do
       require "mysql"
 
       ::Mysql.connect(
-        "localhost",
-        credentials["username"],
-        credentials["password"],
+        node["mysql"]["credentials"]["host"],
+        node["mysql"]["credentials"]["username"],
+        node["mysql"]["credentials"]["password"],
         "mysql",
-        node["mysql"]["server"]["port"]
+        node["mysql"]["credentials"]["port"]
       )
     rescue ::Mysql::Error
       false
@@ -61,9 +55,10 @@ end
     database_name "mysql"
 
     connection ({
-      "host" => "localhost",
-      "username" => credentials["username"],
-      "password" => credentials["password"]
+      "host" => node["mysql"]["credentials"]["host"],
+      "username" => node["mysql"]["credentials"]["username"],
+      "password" => node["mysql"]["credentials"]["password"],
+      "port" => node["mysql"]["credentials"]["port"]
     })
   
     sql query

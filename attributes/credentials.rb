@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mysql
-# Attributes:: default
+# Attributes:: credentials
 #
 # Copyright 2013, Thomas Boerger
 #
@@ -19,3 +19,5 @@
 
 default["mysql"]["credentials"]["username"] = "root"
 default["mysql"]["credentials"]["password"] = "root"
+default["mysql"]["credentials"]["host"] = "localhost"
+default["mysql"]["credentials"]["port"] = 3306
