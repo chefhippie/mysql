@@ -48,8 +48,8 @@ execute "mysql_password" do
 end
 
 [
-  "DELETE FROM user WHERE Host = '#{node["hostname"]}' OR Host = '127.0.0.1' OR Host = '::1' OR User = ''",
-  "UPDATE user SET Host = '%'"
+  "DELETE FROM user WHERE Host = '#{node["fqdn"].split(".").first}' OR Host = '127.0.0.1' OR Host = '::1' OR User = ''",
+  "UPDATE user SET Host = '%' WHERE User = 'root'"
 ].each_with_index do |query, index|
   mysql_database "mysql_#{index}" do
     database_name "mysql"

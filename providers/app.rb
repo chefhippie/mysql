@@ -21,7 +21,6 @@ require "chef/dsl/include_recipe"
 include Chef::DSL::IncludeRecipe
 
 action :create do
-  include_recipe "database"
   include_recipe "mysql::client"
 
   mysql_database_user new_resource.username do
