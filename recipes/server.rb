@@ -70,6 +70,10 @@ template node["mysql"]["server"]["config_file"] do
   notifies :restart, "service[mysql]"
 end
 
+directory "/etc/my.cnf.d" do
+  action :create
+end
+
 service "mysql" do
   service_name node["mysql"]["server"]["service_name"]
   action [:enable, :start]

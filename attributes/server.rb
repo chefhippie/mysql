@@ -26,7 +26,6 @@ default["mysql"]["server"]["packages"] = value_for_platform_family(
   ),
   "suse" => %w(
     mariadb
-    mariadb-errormessages
     mariadb-tools
   )
 )
@@ -61,7 +60,7 @@ default["mysql"]["server"]["removed_dirs"] = value_for_platform_family(
     /etc/mysql/conf.d
   ),
   "suse" => %w(
-    /etc/my.cnf.d
+
   )
 )
 
