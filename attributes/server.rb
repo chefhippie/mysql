@@ -25,7 +25,9 @@ default["mysql"]["server"]["packages"] = value_for_platform_family(
     mysql-server
   ),
   "suse" => %w(
-    mysql
+    mariadb
+    mariadb-errormessages
+    mariadb-tools
   )
 )
 
@@ -35,10 +37,20 @@ default["mysql"]["server"]["config_file"] = value_for_platform_family(
   "suse" => "/etc/my.cnf"
 )
 
-default["mysql"]["server"]["removed_files"] = %w(
-  /etc/mysql/conf.d/.keepme
-  /etc/mysql/conf.d/mysqld_safe_syslog.cnf
-  /etc/mysql/default_plugins.cnf
+default["mysql"]["server"]["removed_files"] = value_for_platform_family(
+  "debian" => %w(
+    /etc/mysql/conf.d/.keepme
+    /etc/mysql/conf.d/mysqld_safe_syslog.cnf
+    /etc/mysql/default_plugins.cnf
+  ),
+  "ubuntu" => %w(
+    /etc/mysql/conf.d/.keepme
+    /etc/mysql/conf.d/mysqld_safe_syslog.cnf
+    /etc/mysql/default_plugins.cnf
+  ),
+  "suse" => %w(
+    /etc/my.cnf.d/default_plugins.cnf
+  )
 )
 
 default["mysql"]["server"]["removed_dirs"] = value_for_platform_family(
@@ -49,7 +61,7 @@ default["mysql"]["server"]["removed_dirs"] = value_for_platform_family(
     /etc/mysql/conf.d
   ),
   "suse" => %w(
-    /etc/mysql
+    /etc/my.cnf.d
   )
 )
 

@@ -20,3 +20,20 @@
 default["mysql"]["ruby"]["gems"] = %w(
   mysql
 )
+
+default["mysql"]["ruby"]["packages"] = value_for_platform_family(
+  "debian" => %w(
+    make
+    gcc
+    build-essential
+  ),
+  "ubuntu" => %w(
+    make
+    gcc
+    build-essential
+  ),
+  "suse" => %w(
+    make
+    gcc
+  )
+)

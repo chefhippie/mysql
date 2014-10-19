@@ -19,10 +19,14 @@
 
 include_recipe "mysql::credentials"
 
+node["mysql"]["ruby"]["packages"].each do |name|
+  package name do
+    action :install
+  end.run_action(:install, immediately: true)
+end
+
 node["mysql"]["ruby"]["gems"].each do |name|
   chef_gem name do
     action :install
-  end
-  
-  resources("chef_gem[#{name}]").run_action(:install)
+  end.run_action(:install, immediately: true)
 end
