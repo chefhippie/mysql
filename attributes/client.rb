@@ -22,10 +22,6 @@ default["mysql"]["client"]["packages"] = value_for_platform_family(
     mysql-client
     libmysqlclient-dev
   ),
-  "ubuntu" => %w(
-    mysql-client
-    libmysqlclient-dev
-  ),
   "suse" => %w(
     mariadb-client
     libmysqlclient-devel

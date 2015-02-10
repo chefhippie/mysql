@@ -27,11 +27,6 @@ default["mysql"]["ruby"]["packages"] = value_for_platform_family(
     gcc
     build-essential
   ),
-  "ubuntu" => %w(
-    make
-    gcc
-    build-essential
-  ),
   "suse" => %w(
     make
     gcc
